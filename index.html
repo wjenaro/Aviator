@@ -93,20 +93,17 @@
         function playGame() {
             // Get user input
             var userInput = parseFloat(document.getElementById('userInput').value);
-
             var stake = parseFloat(document.getElementById('stakeInput').value);
-           
 
             // Validate input
             if (isNaN(userInput) || isNaN(stake)) {
-                alert('Please put numbers!');
+                alert('Please enter valid numbers!');
                 return;
             }
-            if( userInput <50){
+            if (userInput < 50) {
                 alert('You can only play with at least Ksh 50');
                 return;
             }
-
 
             // Generate a random number between 0 and 9
             var randomNumber = Math.random() * 10;
@@ -114,15 +111,17 @@
             // Display the computer's random number
             document.getElementById('randomNumberLabel').innerHTML = `Winning Stake: ${randomNumber.toFixed(2)}`;
 
-            // Check if the random number is equal or higher than the stake
-            if (randomNumber >= stake) {
-                // User wins
-                var winnings = userInput * 2; // You can adjust the multiplier as needed
-                document.getElementById('result').innerHTML = `<span class="win-emotion">Congratulations! You won ${winnings} Ksh.</span>`;
-            } else {
-                // User loses
-                document.getElementById('result').innerHTML = '<span class="lose-emotion">Sorry, you lost. Try again.</span>';
-            }
+            // Update result after playing again
+            setTimeout(function () {
+                if (randomNumber >= stake) {
+                    // User wins
+                    var winnings = userInput * 2; // You can adjust the multiplier as needed
+                    document.getElementById('result').innerHTML = `<span class="win-emotion">Congratulations! You won ${winnings} Ksh. 🎉</span>`;
+                } else {
+                    // User loses
+                    document.getElementById('result').innerHTML = '<span class="lose-emotion">Sorry, you lost. Try again. 😞</span>';
+                }
+            }, 500); // Add a delay to simulate a more interactive experience
         }
     </script>
 </body>
