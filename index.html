@@ -9,6 +9,7 @@
             text-align: center;
             margin-top: 50px;
             background-color: #f4f4f4;
+            overflow: hidden; /* Prevent horizontal scrollbar */
         }
 
         #game-container {
@@ -77,23 +78,27 @@
                 max-width: 90%;
             }
         }
-        
-    </style>
-    <style>
-        @keyframes scrollRight {
+
+        @keyframes flyToTopRight {
             0% {
-                transform: translateX(100%);
+                transform: translate(0, 0);
+                opacity: 1;
             }
             100% {
-                transform: translateX(-100%);
+                transform: translate(calc(100vw - 2em), calc(0.5em));
+                opacity: 0;
             }
+        }
+
+        .fly-to-top-right {
+            animation: flyToTopRight 2s ease-out forwards;
         }
     </style>
     <title>Aviator Game</title>
 </head>
 <body>
     <div id="game-container">
-        <h2>🛩️ viator Crash game  Simulation 🛩️</h2>
+        <h2>Aviator Crash simulation 🛩️</h2>
         
         <label for="userInput">Ksh:</label>
         <input type="text" id="userInput" required>
@@ -103,15 +108,15 @@
         <label id="randomNumberLabel"><!--Show the computer random number here--></label>
         
         <button onclick="playGame()">Play </button>
+        <i id="emoji">🛩️</i>
 
         <div id="result"></div>
-        
     </div>
     <div style="background-color: #05eaf7; overflow: hidden;">
         <i style="text-decoration: dotted; font-size: 1.9rem; white-space: nowrap; animation: scrollRight 5s linear infinite;">
           @jenaro.pro 
         </i>
-      </div>
+    </div>
 
     <script>
         function playGame() {
@@ -135,6 +140,10 @@
             // Display the computer's random number
             document.getElementById('randomNumberLabel').innerHTML = `Winning Stake: ${randomNumber.toFixed(2)}`;
 
+            // Make emoji fly to top right after pressing the button
+            var emoji = document.getElementById('emoji');
+            emoji.classList.add('fly-to-top-right');
+
             // Update result after playing again
             setTimeout(function () {
                 if (randomNumber >= stake) {
@@ -145,7 +154,10 @@
                     // User loses
                     document.getElementById('result').innerHTML = '<span class="lose-emotion">Sorry, you lost. Try again. 😞</span>';
                 }
-            }, 500); // Add a delay to simulate a more interactive experience
+
+                // Reset emoji animation
+                emoji.classList.remove('fly-to-top-right');
+            }, 2000); // Add a delay to simulate a more interactive experience
         }
     </script>
 </body>
