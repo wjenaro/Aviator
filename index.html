@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f4;
+        }
+
+        #game-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #randomNumberLabel {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .win-emotion {
+            color: #4caf50;
+            font-size: 24px;
+        }
+
+        .lose-emotion {
+            color: #e74c3c;
+            font-size: 24px;
+        }
+    </style>
+    <title>Aviator Game</title>
+</head>
+<body>
+    <div id="game-container">
+        <h2>Aviator Game</h2>
+        
+        <label for="userInput">Ksh:</label>
+        <input type="text" id="userInput" required>
+        
+        <label for="stakeInput">Stake:</label>
+        <input type="text" id="stakeInput" required>
+        <label id="randomNumberLabel"><!--Show the computer random number here--></label>
+        
+        <button onclick="playGame()">Play </button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function playGame() {
+            // Get user input
+            var userInput = parseFloat(document.getElementById('userInput').value);
+
+            var stake = parseFloat(document.getElementById('stakeInput').value);
+           
+
+            // Validate input
+            if (isNaN(userInput) || isNaN(stake)) {
+                alert('Please put numbers!');
+                return;
+            }
+            if( userInput <50){
+                alert('You can only play with at least Ksh 50');
+                return;
+            }
+
+
+            // Generate a random number between 0 and 9
+            var randomNumber = Math.random() * 10;
+
+            // Display the computer's random number
+            document.getElementById('randomNumberLabel').innerHTML = `Winning Stake: ${randomNumber.toFixed(2)}`;
+
+            // Check if the random number is equal or higher than the stake
+            if (randomNumber >= stake) {
+                // User wins
+                var winnings = userInput * 2; // You can adjust the multiplier as needed
+                document.getElementById('result').innerHTML = `<span class="win-emotion">Congratulations! You won ${winnings} Ksh.</span>`;
+            } else {
+                // User loses
+                document.getElementById('result').innerHTML = '<span class="lose-emotion">Sorry, you lost. Try again.</span>';
+            }
+        }
+    </script>
+</body>
+</html>
