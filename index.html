@@ -122,8 +122,8 @@
             setTimeout(function () {
                 if (randomNumber >= stake) {
                     // User wins
-                    var winnings = userInput * 2; // You can adjust the multiplier as needed
-                    document.getElementById('result').innerHTML = `<span class="win-emotion">Congratulations! You won ${winnings} Ksh. 🎉</span>`;
+                    var winnings = userInput * randomNumber; 
+                    document.getElementById('result').innerHTML = `<span class="win-emotion">Congratulations! You won ${winnings.toFixed(2)} Ksh. 🎉</span>`;
                 } else {
                     // User loses
                     document.getElementById('result').innerHTML = '<span class="lose-emotion">Sorry, you lost. Try again. 😞</span>';
